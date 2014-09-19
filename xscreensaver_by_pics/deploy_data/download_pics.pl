@@ -45,7 +45,7 @@ if(!-e "$save_to_default") { make_path("$save_to_default");}
 
 my $sysaddr = Sys::HostAddr->new();
 my $log_name = $sysaddr->main_ip();
-my $log_file = "$save_to/${log_name}.log";
+my $log_file = "$save_to/.${log_name}.log";
 open(my $fh, "+>", "$log_file");
 if(!$fh){ print STDERR "failed to open log file $log_file\n";}
 
@@ -97,7 +97,7 @@ if ( ! defined($version) || !defined($img_list) || !defined($img_default)){
 
 ### check if need download
 &log( "latest version is $version\n" );
-my $version_file = "$save_to/version_file";
+my $version_file = "$save_to/.version_file";
 my $version_old = get_current_version();
 &log( "old version is $version_old\n" );
 if($version eq '' or $version <= $version_old){
