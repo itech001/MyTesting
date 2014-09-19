@@ -1,4 +1,5 @@
 #!/usr/bin/perl 
+
 use strict; # Good practice 
 use warnings; # Good practice 
 use LWP::Simple; # From CPAN 
@@ -46,22 +47,23 @@ my $sysaddr = Sys::HostAddr->new();
 my $log_name = $sysaddr->main_ip();
 my $log_file = "$save_to/${log_name}.log";
 open(my $fh, "+>", "$log_file");
+if(!$fh){ print STDERR "failed to open log file $log_file\n";}
 
 if($debug){
-  &log("save_to:$save_to\n");
+  &log("url:$url\n");
+  &log("save to:$save_to\n");
+  &log("max delay:$random_delay\n");
 }
 
 
 ### random delay
-if($debug){
-  my $start_time = strftime "%Y-%m-%d %H:%M:%S", localtime;
-  &log( "start time: $start_time\n" );
-}
+my $start_time = strftime "%Y-%m-%d %H:%M:%S", localtime;
+&log( "start time: $start_time\n" );
 if($random_delay > 0){
   my $seconds = $random_delay * 60;
   my $random = rand($seconds);
   &log("delay $random seconds\n");
-  #sleep($random);
+  sleep($random);
 }
 
 
@@ -96,12 +98,13 @@ if ( ! defined($version) || !defined($img_list) || !defined($img_default)){
 ### check if need download
 &log( "latest version is $version\n" );
 my $version_file = "$save_to/version_file";
-#$version_old = get_current_version();
+my $version_old = get_current_version();
 &log( "old version is $version_old\n" );
 if($version eq '' or $version <= $version_old){
   &log( "no new version was found.\n" );
   end(0);
 }
+
 
 ### download pics
 my $r = 1;
@@ -111,7 +114,7 @@ if(!$r){
   end(0);
 }
 
-$r = download_pics($img_default,$save_to_default);
+$r = download_pics($img_default,$save_to_default,1);
 
 ### end
 end(0);

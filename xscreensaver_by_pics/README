@@ -1,4 +1,1 @@
-
-1) sudo apt-get -y install xscreensaver xscreensaver-gl
-
-2) rm 
+deploy_data/deploy.sh
