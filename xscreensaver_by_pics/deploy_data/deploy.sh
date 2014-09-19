@@ -10,3 +10,7 @@ cp xscreensaver.desktop $HOME/.config/autostart/xscreensaver.desktop
 cp xscreensaver_service.desktop $HOME/.config/autostart/xscreensaver_service.desktop
 cp xscreensaver_test.desktop $HOME/.config/autostart/xscreensaver_test.desktop
 
+sudo cpan
+install JSON
+install Data::GUID
+Sys::HostAddr 
