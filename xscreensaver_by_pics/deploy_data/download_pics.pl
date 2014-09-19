@@ -68,8 +68,8 @@ if($random_delay > 0){
 
 
 ### start time
-my $start_time = strftime "%Y-%m-%d %H:%M:%S", localtime;
-&log( "start time after delay: $start_time\n" );
+my $start_time_delay = strftime "%Y-%m-%d %H:%M:%S", localtime;
+&log( "start time after delay: $start_time_delay\n" );
 
 
 ### get json
@@ -79,7 +79,7 @@ if(! defined($json)){
  end(1);
 }
 my $decoded_json = decode_json( $json );
-
+&log( Dumper $decoded_json);
 
 ### get image list
 my $version = 0;
@@ -98,7 +98,7 @@ if ( ! defined($version) || !defined($img_list) || !defined($img_default)){
 ### check if need download
 &log( "latest version is $version\n" );
 my $version_file = "$save_to/.version_file";
-my $version_old = get_current_version();
+$version_old = &get_current_version();
 &log( "old version is $version_old\n" );
 if($version eq '' or $version <= $version_old){
   &log( "no new version was found.\n" );
@@ -110,7 +110,7 @@ if($version eq '' or $version <= $version_old){
 my $r = 1;
 $r = download_pics($img_list,$save_to_current,1);
 if(!$r){
-  save_current_version($version);
+  &save_current_version($version);
   end(0);
 }
 
@@ -185,16 +185,16 @@ sub log_error{
 }
 sub get_current_version(){
   if(!-e "$version_file") { return -1;}
-  open(my $f, '<', $version);
+  open(my $f, '<', $version_file);
   if(!defined($f)){ 
     &log("Could not open file '$version_file' with the error $!");
     return -1;
   }
-  while (my $row = <$fh>) {
+  while (my $row = <$f>) {
   chomp $row;
   if(defined($row) && $row >=0 ){ close($f);return $row;}
   }
-  close($fh);
+  close($f);
   return -1;
 }
 sub save_current_version($){
