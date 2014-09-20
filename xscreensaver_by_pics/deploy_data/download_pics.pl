@@ -37,7 +37,7 @@ if(!$result){ print STDERR "parameters error\n"; exit 1;}
 if(!-e "$save_to"){
  my $err;
  make_path("$save_to",{error => \$err});
- if($err){ print STDERR "$err\n"; exit 1; }
+ if(!$err){ print STDERR "$err\n"; exit 1; }
 }
 my $save_to_current = "$save_to/current";
 my $save_to_default = "$save_to/default";
