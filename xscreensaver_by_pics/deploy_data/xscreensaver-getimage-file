@@ -796,8 +796,8 @@ my $filename_last = "$ENV{HOME}/.xscreensaver_last.$ip";
 
 sub get_last_id(){
  if(!-e "$filename_last") { return -1;}
- open(my $fh, '<:encoding(UTF-8)', $filename_last);
- if(!$fh){ "Could not open file '$filename_last' with the error $!"; return -1;}
+ open(my $fh, '<', $filename_last);
+ if(!$fh){ print "Could not open file '$filename_last' with the error $!"; return -1;}
  while (my $row = <$fh>) {
   chomp $row;
   if(defined($row) && $row > -1){ close($fh);return $row;}

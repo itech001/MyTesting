@@ -1,24 +1,17 @@
-url:http://localhost:8000/online_pics.json
-save to:/home/adminuser/xscreensaver_by_pics/result_data
-max delay:0
-start time: 2014-09-19 10:28:41
-start time after delay: 2014-09-19 10:28:41
+start time: 2014-09-20 07:55:15
+delay 6.20481657771982 seconds
+start time after delay: 2014-09-20 07:55:21
 $VAR1 = {
-          'version' => 3,
-          'image_default' => [
-                               'http://pic1.bbzhi.com/renwenbizhi/aozhouxinifengjingsheyingji/human_sydney_australia_2996_10.jpg'
-                             ],
           'image_list' => [
                             'http://img3.3lian.com/2013/c2/80/d/1.jpg',
                             'http://www.bz889.com/uploads/allimg/120613/1-1206131Z537.jpg'
-                          ]
+                          ],
+          'image_default' => [
+                               'http://pic1.bbzhi.com/renwenbizhi/aozhouxinifengjingsheyingji/human_sydney_australia_2996_10.jpg'
+                             ],
+          'version' => 3
         };
 latest version is 3
-old version is 2
-download http://img3.3lian.com/2013/c2/80/d/1.jpg successfully to /home/adminuser/xscreensaver_by_pics/result_data/40B2D512-4009-11E4-90CB-D08612B297AE/0.jpg
-download http://www.bz889.com/uploads/allimg/120613/1-1206131Z537.jpg successfully to /home/adminuser/xscreensaver_by_pics/result_data/40B2D512-4009-11E4-90CB-D08612B297AE/1.jpg
-remove /home/adminuser/xscreensaver_by_pics/result_data/current.bak
-rename from /home/adminuser/xscreensaver_by_pics/result_data/current to /home/adminuser/xscreensaver_by_pics/result_data/current.bak
-rename from /home/adminuser/xscreensaver_by_pics/result_data/40B2D512-4009-11E4-90CB-D08612B297AE to /home/adminuser/xscreensaver_by_pics/result_data/current
-symlink from /home/adminuser/xscreensaver_by_pics/result_data/current to /home/adminuser/xscreensaver_by_pics/result_data/used
-end time: 2014-09-19 10:28:46
+old version is 3
+no new version was found.
+end time: 2014-09-20 07:55:23
