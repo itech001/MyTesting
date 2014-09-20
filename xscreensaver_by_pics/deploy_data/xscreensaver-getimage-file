@@ -789,13 +789,16 @@ sub mirror_feed($) {
   return ($url, $dir);
 }
 
-my $filename_last = "$ENV{HOME}/.xscreensaver_last";
+use Sys::HostAddr;
+my $sysaddr = Sys::HostAddr->new();
+my $ip = $sysaddr->main_ip();
+my $filename_last = "$ENV{HOME}/.xscreensaver_last.$ip";
 
 sub get_last_id(){
  if(!-e "$filename_last") { return -1;}
-open(my $fh, '<:encoding(UTF-8)', $filename_last)
-  or die "Could not open file '$filename_last' with the error $!";
-while (my $row = <$fh>) {
+ open(my $fh, '<:encoding(UTF-8)', $filename_last);
+ if(!$fh){ "Could not open file '$filename_last' with the error $!"; return -1;}
+ while (my $row = <$fh>) {
   chomp $row;
   if(defined($row) && $row > -1){ close($fh);return $row;}
 }
@@ -804,9 +807,11 @@ return -1;
 }
 sub write_last_id($){
  my $id = shift;
- open(my $fh, "+>", "$filename_last") or die "failed to opened file $filename_last\n";
+ open(my $fh, "+>", "$filename_last");
+ if(!$fh){ print "failed to opened file $filename_last\n"; return 1;}
  print $fh "$id";
  close($fh);
+ return 0;
 }
 
 sub find_random_file($) {

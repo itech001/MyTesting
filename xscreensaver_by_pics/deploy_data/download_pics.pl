@@ -11,6 +11,8 @@ use Getopt::Long;
 use Data::GUID;
 use File::Basename;
 use Sys::HostAddr;
+use Fcntl ':flock';
+
 
 ### get options 
 my $url = 'http://localhost:8000/online_pics.json'; 
@@ -204,6 +206,7 @@ sub save_current_version($){
    &log("Error:failed to save version.\n");
    return;
  }
+ flock($f, LOCK_EX);
  print $f "$version";
  close($f);
 }
