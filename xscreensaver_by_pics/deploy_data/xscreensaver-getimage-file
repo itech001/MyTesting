@@ -789,10 +789,10 @@ sub mirror_feed($) {
   return ($url, $dir);
 }
 
-use Sys::HostAddr;
-my $sysaddr = Sys::HostAddr->new();
-my $ip = $sysaddr->main_ip();
-my $filename_last = "$ENV{HOME}/.xscreensaver_last.$ip";
+#use Sys::HostAddr;
+#my $sysaddr = Sys::HostAddr->new();
+#my $ip = $sysaddr->main_ip();
+my $filename_last = "/var/guest-data/.xscreensaver_last";
 
 sub get_last_id(){
  if(!-e "$filename_last") { return -1;}

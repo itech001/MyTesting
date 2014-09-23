@@ -16,8 +16,8 @@ use Fcntl ':flock';
 
 ### get options 
 my $url = 'http://localhost:8000/online_pics.json'; 
-my $save_to = "$ENV{HOME}/xscreensaver_by_pics/result_data";
-my $random_delay = 1;
+my $save_to = "/mnt/screensaver/xscreensaver_by_pics/result_data";
+my $random_delay = 5;
 my $verbose = 0;
 my $help  = 0; 
 my $debug = 0;

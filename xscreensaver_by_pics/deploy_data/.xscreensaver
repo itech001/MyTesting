@@ -32,7 +32,7 @@ dpmsOff:	4:00:00
 grabDesktopImages:  False
 grabVideoFrames:    False
 chooseRandomImages: True
-imageDirectory:	/home/adminuser/xscreensaver_by_pics/result_data/used
+imageDirectory:	/mnt/screensaver/xscreensaver_by_pics/result_data/used
 
 mode:		one
 selected:	142
