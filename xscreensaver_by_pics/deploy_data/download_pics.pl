@@ -108,6 +108,18 @@ if($version eq '' or $version <= $version_old){
 }
 
 
+### check if need switch to defalt
+if(scalar(@$img_list) == 0 ){
+  &log("symlink from $save_to_default to $save_to_used\n");
+  if ( -l "$save_to_used" ) {
+     unlink("$save_to_used") or &log("failed to remove file $save_to_used: $!\n");
+  } 
+  symlink("$save_to_default", "$save_to_used");   
+  #system("ln -s $save_to $save_to_used");
+  end(0);
+}
+
+
 ### download pics
 my $r = 1;
 $r = download_pics($img_list,$save_to_current,1);
@@ -116,7 +128,7 @@ if(!$r){
   end(0);
 }
 
-$r = download_pics($img_default,$save_to_default,1);
+#$r = download_pics($img_default,$save_to_default,1);
 
 ### end
 end(0);
@@ -133,10 +145,10 @@ sub download_pic{
   }
 }
 sub download_pics{
-  my ($img_list,$save_to,$is_update_used_link) = @_;
+  my ($img_list,$save_to_dir,$is_update_used_link) = @_;
   my $guid = Data::GUID->new;
   my $tmp = $guid->as_string; 
-  my $save_to_tmp = dirname($save_to) . '/' . $tmp;
+  my $save_to_tmp = dirname($save_to_dir) . '/' . $tmp;
   if(!-e "$save_to_tmp") { make_path("$save_to_tmp");}
   my $i = 0;
   my $s = 0; # suceesful
@@ -148,19 +160,21 @@ sub download_pics{
     $i++;
   }
   if($s > 0){
-    &log("remove ${save_to}.bak\n");
-    remove_tree("${save_to}.bak");
-    #system("rm -rf ${save_to}.bak");
-    &log("rename from $save_to to ${save_to}.bak\n");
-    rename($save_to, "${save_to}.bak");
-    #system("mv $save_to ${save_to}.bak");
-    &log("rename from $save_to_tmp to $save_to\n");
-    rename($save_to_tmp,$save_to);
-    #system("mv $save_to_tmp $save_to");
+    &log("remove ${save_to_dir}.bak\n");
+    remove_tree("${save_to_dir}.bak");
+
+    &log("rename from $save_to_dir to ${save_to_dir}.bak\n");
+    rename($save_to_dir, "${save_to_dir}.bak");
+
+    &log("rename from $save_to_tmp to $save_to_dir\n");
+    rename($save_to_tmp,$save_to_dir);
+    
     if($is_update_used_link){
-      &log("symlink from $save_to to $save_to_used\n");
-      symlink($save_to, $save_to_used);  
-      #system("ln -s $save_to $save_to_used");
+      &log("symlink from $save_to_dir to $save_to_used\n");
+      if ( -l "$save_to_used" ) {
+         unlink("$save_to_used") or &log("failed to remove file $save_to_used: $!\n");
+      } 
+      symlink($save_to_dir, $save_to_used);  
     }
     return 0;
   }else{

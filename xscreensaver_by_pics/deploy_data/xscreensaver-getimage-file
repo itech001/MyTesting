@@ -792,7 +792,8 @@ sub mirror_feed($) {
 #use Sys::HostAddr;
 #my $sysaddr = Sys::HostAddr->new();
 #my $ip = $sysaddr->main_ip();
-my $filename_last = "/var/guest-data/.xscreensaver_last";
+my $u = $ENV{'LOGNAME'};
+my $filename_last = "/var/guest-data/.xscreensaver_last_$u";
 
 sub get_last_id(){
  if(!-e "$filename_last") { return -1;}

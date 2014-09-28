@@ -14,6 +14,7 @@ cpan -fi JSON Data::GUID Sys::HostAddr
 apt-get -y install xscreensaver xscreensaver-gl
 mv /usr/bin/xscreensaver-getimage-file /usr/bin/xscreensaver-getimage-file.bak
 cp  /mnt/screensaver/xscreensaver_by_pics/deploy_data/xscreensaver-getimage-file /usr/bin/xscreensaver-getimage-file 
+chmod a+x /usr/bin/xscreensaver-getimage-file
 for testing
 /usr/bin/xscreensaver-getimage-file /mnt/screensaver/test
 
@@ -43,7 +44,7 @@ for testing:
 /mnt/screensaver/xscreensaver_by_pics/deploy_data/download_pics.pl
 
 # m h  dom mon dow   command
-@reboot xscreensaver -no-splash
+@reboot xscreensaver -no-splash -no-capture-stderr
 @reboot /mnt/screensaver/xscreensaver_by_pics/test_data/start_server.sh
 @reboot /mnt/screensaver/xscreensaver_by_pics/deploy_data/download_pics.pl
 0 9 * * * /mnt/screensaver/xscreensaver_by_pics/deploy_data/download_pics.pl
@@ -52,8 +53,12 @@ for testing:
 mkdir /var/guest-data
 chmod 777 /var/guest-data
 vi /etc/apparmor.d/abstractions/lightdm
-  /mnt/** rw,
+  /mnt/** rwlkmix,
   /var/guest-data/** rw,
+  /proc/net/dev/** rwlkmix,  (doesn't work)
 
-8) reboot system to verity result
+8) ctrl+alt+l to lock 
+sudo ln -s /usr/bin/xscreensaver-command /usr/bin/gnome-screensaver-command
+
+9)reboot system to verity result
 xscreensaver-command -activate
